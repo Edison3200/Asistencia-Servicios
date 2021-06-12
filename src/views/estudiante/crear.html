@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %} 
+{% block titulo %} Sesiones {% endblock %} 
+
+{% block contenido %}
+  <div class="row justify-content-md-center mb-3">
+      <div class="col-md-6 m-5">
+          <div class="card">
+            <div class="card-header text-center">
+              <h4>Crear estudiante</h4>
+             </div>
+                <div class="card-body">
+                  <form class="form-control" action="{{ url_for('usuario_crear') }}" method="POST">            
+                    <div class="form-group">
+                      <label for="identificacion">Ingresa tu identificacion</label>
+                      <input type="text" id="identificacion" name="identificacion" class="form-control" pattern="\d*" maxlength="10" placeholder="Tu numero de identificacion" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="nombres">Nombres</label>
+                      <input type="text" id="nombres" name="nombres" class="form-control" placeholder="Nombre de identificacion" maxlength="50" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="apellidos">Apellidos</label>
+                      <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellido de identificacion "  maxlength="50" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="celular"> Telefono Celular </label>
+                      <input type="text" id="celular" name="celular" class="form-control" placeholder="Tu numero de celular" pattern="\d*"  maxlength="10" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" name="email" class="form-control" placeholder="Correo Electronico" maxlength="50"  required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="Semestre">Semestre</label>
+                      <select name="semestres" class="form-control">
+                        {% for semestre in semestres %}
+                        <option value="{{ semestre[0]}}">{{ semestre[1] }}</option>
+                        {% endfor %}                                              
+                      </select>
+                    </div>
+                    <div class="footer-page text-center">
+                      <a href="{{ url_for('index') }}" class="btn btn-primary">Volver</a>
+                      <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                  </form>
+                </div>  
+          </div>
+      </div>
+  </div>
+
+  {% endblock%}

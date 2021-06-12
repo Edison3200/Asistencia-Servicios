@@ -1,0 +1,68 @@
+{% extends 'layouts/base.html' %} 
+{% block titulo %} Estudiantes {% endblock %} 
+
+{% block contenido %}
+
+
+<div class="row justify-content-md-center mb-3">
+    <div class="col-md-6 m-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                
+                {% for category,message in messages %}
+                
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+            {% endwith %}
+    
+    </div>
+</div>
+ 
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-light">
+                <th>Id</th>
+                <th>Identificacion</th>
+                <th>Nombre Completo</th>
+                <th>Celular</th>
+                <th >E mail</th>
+                <th >Semestre</th>
+                <TH colspan="2">Acciones</TH>
+            </tr>
+            </thead>
+            <tbody>
+            
+                {% for estudiante in estudiantes %}
+                <tr class="table-light">
+                    <td>{{ estudiante[0] }}</td>
+                    <td>{{ estudiante[1] }}</td>
+                    <td>{{ estudiante[2] }} {{ estudiante[3] }}</td>
+                    <td>{{ estudiante[4] }}</td>
+                    <td>{{ estudiante[5] }}</td>
+                    <td>{{ estudiante[6] }}</td>
+                    <td >
+                        <form method="POST" action="{{url_for('estudiante_edit')}}" >
+                          <input type="hidden" value="{{estudiante[0]}}" name="id" id="=id">
+                          <input  class="btn btn-success" type="submit" value="Editar">
+                        </form>
+                    </td>
+                    <td >
+                        <form action="{{ url_for('delete_estudiante') }}" method="post">
+                            <input type="hidden" value="{{estudiante[0]}}" name="id" id="=id">
+                            <input class="btn btn-danger" type="submit" value="Eliminar" onclick="return confirm('Deseas Eliminar?');">
+                          </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+   
+
+{% endblock%}
+

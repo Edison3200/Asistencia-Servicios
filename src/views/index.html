@@ -1,0 +1,61 @@
+{% extends 'layouts/base.html' %} 
+{% block titulo %} Sesiones {% endblock %} 
+
+{% block contenido %}
+<div class="row justify-content-md-center mb-3">
+    <div class="col-md-6 m-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                
+                {% for category,message in messages %}
+                
+                <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+                    <strong>{{message}}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+            {% endwith %}
+    </div>
+</div>
+<div class="row ">
+    <h2 class="text-center"> Sesiones</h2>
+                {% for sesion in sesiones %}
+                <div class="col-sm-4">
+                    <div class="card" >
+                        <div class="card-header text-center">
+                            {{ sesion[8] }}
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">{{ sesion[1] }}</h3>
+                            <p class="card-text">{{ sesion[2] }} <br> 
+                                Fecha: {{ sesion[4] }}, Hora de Inicio:{{ sesion[5] }}, Hasta: {{ sesion[6] }}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col">
+                                    <form method="POST" action="{{url_for('ingresar_sesion')}}" >
+                                        <input type="hidden" value="{{sesion[0]}}" name="id" id="id">
+                                        <input type="hidden" value="{{sesion[7]}}" name="semestre" id="semestre">
+                                        <input  class="btn btn-primary" type="submit" value="Ingresar a Sesion">
+                                    </form>
+                                </div>
+                               <div class="col">
+                                    <form action="{{ url_for('delete_sesion') }}" method="post">
+                                        <input type="hidden" value="{{sesion[0]}}" name="id" id="=id">
+                                        <input class="btn btn-danger" type="submit" value="Eliminar" onclick="return confirm('Deseas Eliminar la sesion?');">
+                                    </form>  
+                               </div>
+                               
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+    
+</div>
+{% endblock%}

@@ -1,0 +1,54 @@
+{% extends 'layouts/base.html' %} 
+{% block titulo %} Sesiones {% endblock %} 
+
+{% block contenido %}
+  <div class="row justify-content-md-center mb-3">
+      <div class="col-md-6 m-5">
+          <div class="card">
+            <div class="card-header text-center">
+              <h4>Crear Sesion</h4>
+             </div>
+                <div class="card-body">
+                  <form class="form-control" action="{{ url_for('sesion_crear') }}" method="POST">            
+                    <div class="form-group">
+                      <label for="nombre">Ingresa el nombre de Asignatura  </label>
+                      <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Semestre y programa al que pertenece" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="descripcion">Ingresa la descripcion de la Sesion </label>
+                      <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="Decripcion de sesion" required/>
+                    </div>
+                    <div class="form-group">
+                      <label for="Semestre">Selecciona el Semestre</label>
+                      <select name="semestres" class="form-control">
+                        {% for semestre in semestres %}
+                        <option value="{{ semestre[0]}}">{{ semestre[1] }}</option>
+                        {% endfor %}                                              
+                      </select>
+                    </div>
+                    <div class="form-group ">
+                      <label for="fecha">Fecha de Inicio</label>
+                      <input class="form-control" type="date" value="2021-04-30" id="fecha" name="fecha" required>
+                     
+                    </div>
+                    <div class="form-group">
+                      <label for="horai" >Hora de inicio</label>
+                      <input class="form-control" type="time" value="13:45:00" id="horai" name="horai" required>
+                    
+                    </div>
+                    <div class="form-group">
+                      <label for="horaf" class="form-control">Hora de Fin</label>
+                      <input class="form-control" type="time" value="13:45:00" id="horaf" name="horaf" required>
+                    
+                    </div>
+                    <div class="footer-page text-center">
+                      <a href="{{ url_for('index') }}" class="btn btn-primary">Volver</a>
+                      <button type="submit" class="btn btn-success">Guardar</button>
+                    </div>
+                  </form>
+                </div>  
+          </div>
+      </div>
+  </div>
+
+  {% endblock%}

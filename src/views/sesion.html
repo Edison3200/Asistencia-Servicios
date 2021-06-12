@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %} 
+{% block titulo %} Sesion {% endblock %} 
+
+{% block contenido %}
+
+
+        <h4 class="text-center">Listado de Estudiantes {{sesion[1]}}  {{sesion[8]}}</h4>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-light">
+                <th>Id</th>
+                <th>Identificacion</th>
+                <th>Nombre Completo</th>
+                <th>Celular</th>
+                <th >E mail</th>
+                <TH colspan="2">Asistio</TH>
+            </tr>
+            </thead>
+            <tbody>
+                <form method="POST" action="{{url_for('guardar_sesion')}}" >
+                  
+                    {% for estudiante in estudiantes %}
+                    <tr class="table-light">
+                        <td>{{ estudiante[0] }}</td>
+                        <td>{{ estudiante[1] }}</td>
+                        <td>{{ estudiante[2] }} {{ estudiante[3] }}</td>
+                        <td>{{ estudiante[4] }}</td>
+                        <td>{{ estudiante[5] }} </td>
+
+                        <td >
+                        
+                            {% if estudiante[0] in activos %}
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="{{estudiante[0]}}" name="{{estudiante[0]}}" value="{{estudiante[0]}}" checked>
+                                    
+                            
+                                </div>
+                            {% else %}
+                                <div class="form-check form-switch">
+                                    
+                                    <input class="form-check-input" type="checkbox" id="{{estudiante[0]}}" name="{{estudiante[0]}}" value="{{estudiante[0]}}"  >
+                                </div>
+                            {% endif %}
+                             
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="6" >
+                           
+                                <div class="text-center">
+                                    <input  class="btn btn-primary" type="submit" value="Guardar Asistencia">
+                                </div>
+                            
+                        </td>
+                    </tr>
+                    <input type="hidden" value="{{sesion[0]}}" name="id" id="id">
+                    <input type="hidden" value="{{sesion[7]}}" name="semestre" id="semestre">
+                </form>
+            </tbody>
+        </table>
+   
+
+{% endblock%}
